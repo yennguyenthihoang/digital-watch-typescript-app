@@ -1,6 +1,6 @@
 # Digital Watch - typescript
 Digital Watch typescript project
-Using TypeScript create many digital watch by timezones and Stopwatch.
+Using TypeScript to create many digital watch by timezones and Stopwatch.
 
 ## Demo
 

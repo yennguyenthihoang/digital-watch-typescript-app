@@ -1,1 +1,1 @@
-export * from './DigitalClock';
+export * from './digitalClock';
