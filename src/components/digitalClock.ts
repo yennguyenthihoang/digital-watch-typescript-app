@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import * as momentTZ from 'moment-timezone';
 
 export class DigitalClock {
     id: string;
@@ -17,7 +18,7 @@ export class DigitalClock {
 
     public constructor(container: HTMLElement, _strTimezone: string, _city: string) {
         this.id = `clock-${_strTimezone}-${_city}`;
-        this.timezone = parseInt(moment().tz(_strTimezone).format('z'));
+        //this.timezone = parseInt(moment().tz(_strTimezone).format('z'));
         this.strTimezone = _strTimezone;
         this.city = _city;
         this.displayMode = false;
@@ -29,6 +30,7 @@ export class DigitalClock {
         this.hours = currentTime.hours;
         this.minutes = currentTime.minutes;
         this.seconds = currentTime.seconds;
+        this.timezone = parseInt(currentTime.timezone);
 
         this.renderUIClock(container);
         this.init(container);
@@ -166,13 +168,18 @@ export class DigitalClock {
     }
   
     getCurrentTime() {
-      const now = new Date();
-  
-      return {
-        hours: now.getHours(),
-        minutes: now.getMinutes(),
-        seconds: now.getSeconds(),
-      };
+        momentTZ.locale(this.locale);
+        const now = momentTZ().tz(this.strTimezone);
+        const tz = momentTZ().tz(this.strTimezone).format('z');
+    
+        //const now = new Date();
+    
+        return {
+            hours: now.hours(),
+            minutes: now.minutes(),
+            seconds: now.seconds(),
+            timezone: tz,
+        };
     }
 
     updateModeBtn(container: HTMLElement) {
